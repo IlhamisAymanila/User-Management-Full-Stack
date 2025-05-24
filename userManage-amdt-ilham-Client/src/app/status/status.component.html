@@ -1,0 +1,45 @@
+<div class="container mt-5">
+    <div class="row">
+    
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                  <h2>Create Status</h2>
+                  <form [formGroup]="statusForm" (ngSubmit)="onSubmit()" class="needs-validation" novalidate>
+                    <!-- Status Name -->
+                    <div class="form-group">
+                      <label for="statusName">Status Name</label>
+                      <input type="text" class="form-control" id="statusName" formControlName="statusName" required>
+                      <div *ngIf="statusForm.get('statusName')?.invalid && statusForm.get('statusName')?.touched" class="text-danger">
+                        Status Name is required.
+                      </div>
+                    </div>
+                
+                    <!-- Description -->
+                    <div class="form-group">
+                      <label for="description">Description</label>
+                      <input type="text" class="form-control" id="description" formControlName="description" required>
+                      <div *ngIf="statusForm.get('description')?.invalid && statusForm.get('description')?.touched" class="text-danger">
+                        Description is required.
+                      </div>
+                    </div>
+                
+                
+                    <!-- Submit Button -->
+                    <button type="submit" class="btn btn-primary" [disabled]="statusForm.invalid">
+                      {{ statusForm.get('statusId')?.value > 0 ? 'Update' : 'Submit' }}
+                  </button>
+                  </form>
+                </div>
+            </div>
+        </div>
+
+       
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body">
+                  <app-status-list (statusRole)="onUpdate($event)"></app-status-list>
+                </div>
+            </div>
+        </div>
+    </div>

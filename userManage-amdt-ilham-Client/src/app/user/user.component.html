@@ -1,0 +1,87 @@
+<div class="container mt-5">
+    <div class="row">
+    
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                  <h2>Create User</h2>
+                  <form [formGroup]="userForm" (ngSubmit)="onSubmit()" class="needs-validation" novalidate>
+                    <!-- First Name -->
+                    <div class="form-group">
+                      <label for="firstName">First Name</label>
+                      <input type="text" class="form-control" id="firstName" formControlName="firstName" required>
+                      <div *ngIf="userForm.get('firstName')?.invalid && userForm.get('firstName')?.touched" class="text-danger">
+                        First Name is required.
+                      </div>
+                    </div>
+                
+                    <!-- Last Name -->
+                    <div class="form-group">
+                      <label for="lastName">Last Name</label>
+                      <input type="text" class="form-control" id="lastName" formControlName="lastName" required>
+                      <div *ngIf="userForm.get('lastName')?.invalid && userForm.get('lastName')?.touched" class="text-danger">
+                        Last Name is required.
+                      </div>
+                    </div>
+                
+                    <!-- Email -->
+                    <div class="form-group">
+                      <label for="email">Email</label>
+                      <input type="email" class="form-control" id="email" formControlName="email" required>
+                      <div *ngIf="userForm.get('email')?.invalid && userForm.get('email')?.touched" class="text-danger">
+                        Please enter a valid email.
+                      </div>
+                    </div>
+                
+                    <!-- Password -->
+                    <div class="form-group">
+                      <label for="password">Password</label>
+                      <input type="password" class="form-control" id="password" formControlName="password" required>
+                      <div *ngIf="userForm.get('password')?.invalid && userForm.get('password')?.touched" class="text-danger">
+                        Password must be at least 6 characters long.
+                      </div>
+                    </div>
+                
+                    <!-- Date of Birth -->
+                    <div class="form-group">
+                      <label for="dateOfBirth">Date of Birth</label>
+                      <input type="date" class="form-control" id="dateOfBirth" formControlName="dateOfBirth" required>
+                      <div *ngIf="userForm.get('dateOfBirth')?.invalid && userForm.get('dateOfBirth')?.touched" class="text-danger">
+                        Date of Birth is required.
+                      </div>
+                    </div>
+                
+                    <!-- Role Type -->
+                    <div class="form-group">
+                      <label for="roleTypeId">Role Type</label>
+                      <select class="form-control" id="roleTypeId" formControlName="roleTypeId">
+                        <option *ngFor="let role of roles$ | async" [value]="role.roleTypeId">{{ role.roleName }}</option>
+                      </select>
+                    </div>
+                
+                    <!-- Status -->
+                    <div class="form-group">
+                      <label for="statusId">Status</label>
+                      <select class="form-control" id="statusId" formControlName="statusId">
+                        <option *ngFor="let status of statuses$ | async" [value]="status.statusId">{{ status.statusName }}</option>
+                      </select>
+                    </div>
+                
+                    <!-- Submit Button -->
+                    <button type="submit" class="btn btn-primary" [disabled]="userForm.invalid">
+                      {{ userForm.get('userId')?.value > 0 ? 'Update' : 'Submit' }}
+                  </button>
+                  </form>
+                </div>
+            </div>
+        </div>
+
+       
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body">
+                  <app-user-list (updateUser)="onUpdateUser($event)"></app-user-list>
+                </div>
+            </div>
+        </div>
+    </div>

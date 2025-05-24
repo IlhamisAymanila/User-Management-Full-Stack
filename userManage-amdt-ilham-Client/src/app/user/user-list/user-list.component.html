@@ -1,0 +1,41 @@
+<div *ngIf="users$ | async as users; else loading">
+    <h2>User List</h2>
+    <input type="text" class="form-control mb-3" placeholder="Search by name..." [(ngModel)]="searchText" />
+    <table id="userTable" class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">User ID</th>
+          <th scope="col">First Name</th>
+          <th scope="col">Last Name</th>
+          <th scope="col">Email</th>
+          <th scope="col">Date of Birth</th>
+          <th scope="col">Role Type</th>
+          <th scope="col">Status</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users | filterUsers: searchText">
+          <td>{{ user.userId }}</td>
+          <td>{{ user.firstName }}</td>
+          <td>{{ user.lastName }}</td>
+          <td>{{ user.email }}</td>
+          <td>{{ user.dateOfBirth | date:'yyyy-MM-dd' }}</td>
+          <td>{{ user.roleName }}</td>
+          <td>{{ user.statusName }}</td>
+          <td>
+            <button class="bg-primary border-0" (click)="onUpdate(user)" title="Update">
+                <i class="fas fa-edit"></i>
+            </button>
+            <button class="bg-danger border-0" (click)="onDelete(user.userId!)" title="Delete">
+                <i class="fas fa-trash-alt"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
+  <ng-template #loading>
+    <p>Loading users...</p>
+  </ng-template>

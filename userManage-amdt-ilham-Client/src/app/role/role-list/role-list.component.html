@@ -1,0 +1,34 @@
+<div *ngIf="roleTypes$ | async as roles; else loading">
+    <h2>Role List</h2>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">Role ID</th>
+          <th scope="col">Role Name</th>
+          <th scope="col">Description</th>
+          <th scope="col">Status</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let role of roles">
+          <td>{{ role.roleTypeId }}</td>
+          <td>{{ role.roleName}}</td>
+          <td>{{ role.description }}</td>
+          <td>{{  role.statusName}}</td>
+          <td>
+            <button class="bg-primary border-0" (click)="onUpdate(role)" title="Update">
+                <i class="fas fa-edit"></i>
+            </button>
+            <button class="bg-danger border-0" (click)="onDelete(role.roleTypeId)" title="Delete">
+                <i class="fas fa-trash-alt"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
+  <ng-template #loading>
+    <p>Loading roles...</p>
+  </ng-template>

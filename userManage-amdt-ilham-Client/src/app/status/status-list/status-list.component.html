@@ -1,0 +1,32 @@
+<div *ngIf="Statuses$ | async as status; else loading">
+    <h2>Status List</h2>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">Status ID</th>
+          <th scope="col">Status Name</th>
+          <th scope="col">Description</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let stat of status">
+          <td>{{ stat.statusId }}</td>
+          <td>{{ stat.statusName}}</td>
+          <td>{{ stat.description }}</td>
+          <td>
+            <button class="bg-primary border-0" (click)="onUpdate(stat)" title="Update">
+                <i class="fas fa-edit"></i>
+            </button>
+            <button class="bg-danger border-0" (click)="onDelete(stat.statusId)" title="Delete">
+                <i class="fas fa-trash-alt"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
+  <ng-template #loading>
+    <p>Loading roles...</p>
+  </ng-template>

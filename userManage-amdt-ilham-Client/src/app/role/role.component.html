@@ -1,0 +1,53 @@
+<div class="container mt-5">
+    <div class="row">
+    
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                  <h2>Create Roles</h2>
+                  <form [formGroup]="roleForm" (ngSubmit)="onSubmit()" class="needs-validation" novalidate>
+                    <!-- Role Name -->
+                    <div class="form-group">
+                      <label for="roleName">Role Name</label>
+                      <input type="text" class="form-control" id="roleName" formControlName="roleName" required>
+                      <div *ngIf="roleForm.get('roleName')?.invalid && roleForm.get('roleName')?.touched" class="text-danger">
+                        Role Name is required.
+                      </div>
+                    </div>
+                
+                    <!-- Description -->
+                    <div class="form-group">
+                      <label for="description">Description</label>
+                      <input type="text" class="form-control" id="description" formControlName="description" required>
+                      <div *ngIf="roleForm.get('description')?.invalid && roleForm.get('description')?.touched" class="text-danger">
+                        Description is required.
+                      </div>
+                    </div>
+                
+                
+                    <!-- Status -->
+                    <div class="form-group">
+                      <label for="statusId">Status</label>
+                      <select class="form-control" id="statusId" formControlName="statusId">
+                        <option *ngFor="let status of statuses$ | async" [value]="status.statusId">{{ status.statusName }}</option>
+                      </select>
+                    </div>
+                
+                    <!-- Submit Button -->
+                    <button type="submit" class="btn btn-primary" [disabled]="roleForm.invalid">
+                      {{ roleForm.get('roleTypeId')?.value > 0 ? 'Update' : 'Submit' }}
+                  </button>
+                  </form>
+                </div>
+            </div>
+        </div>
+
+       
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body">
+                  <app-role-list (updateRole)="onUpdate($event)"></app-role-list>
+                </div>
+            </div>
+        </div>
+    </div>
